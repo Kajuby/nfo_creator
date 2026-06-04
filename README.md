@@ -1,102 +1,194 @@
-# DataLoad NFO Creator 
+# DataLoad NFO Creator
 
-Ein moderner, schlanker und benutzerfreundlicher NFO- und Forenbeitrags-Generator auf Basis von Python und CustomTkinter. Das Tool analysiert technische Daten von Videodateien automatisiert via ffprobe und verbindet diese mit redaktionellen Informationen (Plot, Genres, Jahr) direkt aus der TMDb-Datenbank (The Movie Database).
+Ein moderner, schlanker und benutzerfreundlicher NFO- und Forenbeitrags-Generator auf Basis von Python und CustomTkinter.
+
+Das Tool analysiert technische Daten von Videodateien automatisiert via `ffprobe` und verbindet diese mit redaktionellen Informationen (Plot, Genres, Jahr) direkt aus der TMDb-Datenbank (The Movie Database).
 
 ---
 
 ## Features
 
-- Automatische Videoanalyse: Liest Auflösung, Codecs, Bitraten, Laufzeit, Audio- und Untertitelspuren direkt aus .mkv, .mp4 oder .avi aus.
-- TMDb-Integration: Intelligente Titelsuche inklusive automatischer Auflösung von Mehrfachtreffern (Inline-Auswahlliste) und Abruf von Postern, Plots und Genres.
-- Drei-Tab-Interface:
-  1. Hauptseite: Dateiauswahl, Filmtitel-Suche und NFO-Generierung.
-  2. Einstellungen: API-Key Verwaltung, Live-NFO-Vorschau und flexible Anpassung der NFO-Labels.
-  3. Beitrag Erstellen: Automatisierte Generierung von fertig formatiertem BBCode für Foren (inkl. Hoster-Auswahl, Download-Code-Block und NFO-Spoiler).
-- Responsive Layout: Wechselt per Knopfdruck nahtlos zwischen einer Vollansicht (750 x 920 Pixel) und einem kompakten Mini-Modus (450 x 650 Pixel) für die platzsparende Nutzung nebenbei.
-- Rechtsklick-Kontextmenü: Volle Unterstützung für Ausschneiden, Kopieren, Einfügen und Alles auswählen in allen Textfeldern.
+###  Automatische Videoanalyse
+
+* Liest Auflösung, Codecs, Bitraten, Laufzeit sowie Audio- und Untertitelspuren direkt aus `.mkv`, `.mp4` oder `.avi` Dateien aus.
+
+###  TMDb-Integration
+
+* Intelligente Titelsuche
+* Automatische Auflösung von Mehrfachtreffern (Inline-Auswahlliste)
+* Abruf von Postern, Plots und Genres
+
+###  Drei-Tab-Interface
+
+#### Hauptseite
+
+* Dateiauswahl
+* Filmtitel-Suche
+* NFO-Generierung
+
+#### Einstellungen
+
+* API-Key-Verwaltung
+* Live-NFO-Vorschau
+* Flexible Anpassung der NFO-Labels
+
+#### Beitrag erstellen
+
+* Automatisierte Generierung von fertig formatiertem BBCode für Foren
+* Hoster-Auswahl
+* Download-Code-Block
+* NFO-Spoiler
+
+### 📐 Responsive Layout
+
+* Wechsel per Knopfdruck zwischen:
+
+  * **Vollansicht:** 750 × 920 Pixel
+  * **Mini-Modus:** 450 × 650 Pixel
+
+### 📝 Rechtsklick-Kontextmenü
+
+* Ausschneiden
+* Kopieren
+* Einfügen
+* Alles auswählen
 
 ---
 
-## Voraussetzungen für Entwickler
+# Voraussetzungen für Entwickler
 
 Wenn du am Quellcode arbeiten oder das Skript selbst ausführen möchtest, müssen folgende Abhängigkeiten auf deinem System installiert sein.
 
-### 1. Python
-- Empfohlen: Python 3.10 oder höher
+## 1. Python
 
-### 2. Benötigte Bibliotheken
-Installiere die externen Abhängigkeiten ganz einfach über den Paketmanager pip:
+**Empfohlen:** Python 3.10 oder höher
 
-[ BEFEHL ]
+## 2. Benötigte Bibliotheken
+
+Installiere die externen Abhängigkeiten über `pip`:
+
+```bash
 pip install customtkinter pillow requests
-[ /BEFEHL ]
+```
 
-Hinweis: Die Standardbibliotheken tkinter, subprocess, json, os, sys, textwrap und re sind bereits in Python integriert.
+> Hinweis: Die Standardbibliotheken `tkinter`, `subprocess`, `json`, `os`, `sys`, `textwrap` und `re` sind bereits Bestandteil von Python.
 
-### 3. Externe Binärdateien (Wichtig!)
-Das Programm benötigt ffprobe.exe (Teil des FFmpeg-Projekts) für die Videoanalyse.
-- Erstelle im Projektverzeichnis einen Ordner namens bin.
-- Platziere die ffprobe.exe in diesem Ordner (/bin/ffprobe.exe).
+## 3. Externe Binärdateien (Wichtig)
 
----
+Das Programm benötigt `ffprobe.exe` (Teil des FFmpeg-Projekts) für die Videoanalyse.
 
-## Projektstruktur
+1. Erstelle im Projektverzeichnis einen Ordner namens `bin`
+2. Platziere die Datei `ffprobe.exe` in diesem Ordner:
 
-Für eine korrekte Funktion im Entwicklungsmodus und beim Kompilieren muss die Ordnerstruktur wie folgt aussehen:
-
-[ STRUKTUR ]
-+-- main.py              # Der Hauptquellcode des Programms
-+-- app_icon.ico         # Das Icon der Anwendung
-+-- logo.png             # Großes Branding-Logo für die Hauptansicht
-+-- logo_small.png       # Kleines Logo für den Kompaktmodus
-+-- settings.json        # Speichert API-Key und NFO-Feldkonfiguration
-+-- bin/
-    +-- ffprobe.exe      # Das Tool zur Videoanalyse
-[ /STRUKTUR ]
+```text
+/bin/ffprobe.exe
+```
 
 ---
 
-## Kompilieren zu einer eigenständigen .exe
+# Projektstruktur
 
-Um das Projekt in eine einzige, ausführbare Windows-Datei (.exe) zu verwandeln, wird PyInstaller verwendet. Dadurch werden alle Grafiken, Bibliotheken und sogar die ffprobe.exe direkt in die Datei integriert.
+Für eine korrekte Funktion im Entwicklungsmodus und beim Kompilieren sollte die Ordnerstruktur wie folgt aussehen:
 
-### Schritt 1: PyInstaller installieren
-[ BEFEHL ]
+```text
+project/
+│
+├── main.py              # Hauptquellcode des Programms
+├── app_icon.ico         # Anwendungs-Icon
+├── logo.png             # Großes Branding-Logo
+├── logo_small.png       # Kleines Logo für den Kompaktmodus
+├── settings.json        # API-Key & NFO-Konfiguration
+│
+└── bin/
+    └── ffprobe.exe      # Tool zur Videoanalyse
+```
+
+---
+
+# Kompilieren zu einer eigenständigen EXE
+
+Um das Projekt in eine einzelne ausführbare Windows-Datei (`.exe`) zu verwandeln, wird PyInstaller verwendet.
+
+Dadurch werden alle Grafiken, Bibliotheken und auch `ffprobe.exe` direkt in die Anwendung integriert.
+
+## Schritt 1: PyInstaller installieren
+
+```bash
 pip install pyinstaller
-[ /BEFEHL ]
+```
 
-### Schritt 2: Build-Befehl ausführen
-Nutze exakt diesen Befehl in deiner Eingabeaufforderung (CMD) oder im Terminal deines Editors, um die Anwendung fehlerfrei zu verpacken:
+## Schritt 2: Build-Befehl ausführen
 
-[ BEFEHL ]
-python -m PyInstaller --noconsole --onefile --add-data "logo.png;." --add-data "logo_small.png;." --add-data "app_icon.ico;." --add-data "bin;bin" --collect-all customtkinter --icon="app_icon.ico" main.py
-[ /BEFEHL ]
+Führe folgenden Befehl im Terminal oder in der Eingabeaufforderung aus:
 
-### Erklärung der Parameter:
-- --noconsole: Blendet das schwarze CMD-Hintergrundfenster beim Start der App aus.
-- --onefile: Schnürt das gesamte Programm inklusive aller Abhängigkeiten in eine einzige .exe.
-- --add-data ...: Bettet die Logos, das Icon und den kompletten bin-Ordner (inkl. ffprobe.exe) direkt in den internen Speicher der App ein.
-- --collect-all customtkinter: Zwingt PyInstaller dazu, alle Assets (Themes, Schriften) von CustomTkinter mitzunehmen.
-- --icon=...: Setzt das Anwendungs-Icon für die Windows-Ansicht.
+```bash
+python -m PyInstaller ^
+--noconsole ^
+--onefile ^
+--add-data "logo.png;." ^
+--add-data "logo_small.png;." ^
+--add-data "app_icon.ico;." ^
+--add-data "bin;bin" ^
+--collect-all customtkinter ^
+--icon="app_icon.ico" ^
+main.py
+```
 
-Nach erfolgreichem Build findest du die fertige Datei im neu entstandenen Ordner dist/main.exe.
+### Erklärung der Parameter
+
+| Parameter                     | Beschreibung                                            |
+| ----------------------------- | ------------------------------------------------------- |
+| `--noconsole`                 | Blendet das CMD-Fenster beim Start der Anwendung aus    |
+| `--onefile`                   | Erstellt eine einzelne ausführbare Datei                |
+| `--add-data`                  | Bindet Logos, Icons und den kompletten `bin`-Ordner ein |
+| `--collect-all customtkinter` | Fügt alle Assets und Themes von CustomTkinter hinzu     |
+| `--icon`                      | Setzt das Windows-Anwendungsicon                        |
+
+Nach erfolgreichem Build befindet sich die fertige Datei unter:
+
+```text
+dist/main.exe
+```
 
 ---
 
-## Mitwirken (Contributing)
+# Mitwirken (Contributing)
 
-Beiträge, Fehlerberichte und Feature-Wünsche sind herzlich willkommen!
+Beiträge, Fehlerberichte und Feature-Wünsche sind herzlich willkommen.
 
 1. Forke das Projekt.
-2. Erstelle einen Feature-Branch (git checkout -b feature/AmazingFeature).
-3. Commit deine Änderungen (git commit -m 'Add some AmazingFeature'). Achte im Code bitte penibel auf saubere Formatierung und vermeide Trailing Semicolons am Zeilenende.
-4. Pushe den Branch (git push origin feature/AmazingFeature).
+2. Erstelle einen Feature-Branch:
+
+```bash
+git checkout -b feature/AmazingFeature
+```
+
+3. Committe deine Änderungen:
+
+```bash
+git commit -m "Add some AmazingFeature"
+```
+
+> Bitte achte auf saubere Formatierung und vermeide unnötige Trailing Semicolons am Zeilenende.
+
+4. Pushe den Branch:
+
+```bash
+git push origin feature/AmazingFeature
+```
+
 5. Öffne einen Pull Request.
 
 ---
 
-## Lizenz
+# Lizenz
 
-Dieses Projekt ist für private Zwecke und die Community gedacht. Bitte geh respektvoll mit den genutzten APIs um.
+Dieses Projekt ist für private Zwecke und die Community gedacht.
 
-Entwickelt von Dwarfpicker
+Bitte gehe respektvoll mit den genutzten APIs um.
+
+---
+
+## Entwickler
+
+**Entwickelt von Dwarfpicker**
